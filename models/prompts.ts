@@ -1,4 +1,11 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
+import { IUser } from "./user";
+
+export interface IPrompt extends mongoose.Document {
+    creator: IUser["_id"];
+    prompt: string;
+    tag: string;
+  }
 
 const PromptSchema = new Schema({
     //one to many relationship, one user can create multiple prompts
@@ -16,6 +23,6 @@ const PromptSchema = new Schema({
     }
 });
 
-const Prompt = models.Prompt || model("Prompt", PromptSchema);
+const Prompt = models.Prompt || model<IPrompt>("Prompt", PromptSchema);
 
 export default Prompt;
